@@ -38,8 +38,118 @@
         <a href="#about" class="nav-link">About</a>
       </nav>
 
-      <div class="header-cta">
-        <button class="btn btn-primary" id="btn-check-price-cta">Check a Price</button>
+      <div class="header-actions">
+        <!-- Notification Center Bell -->
+        <div class="notification-wrapper">
+          <button class="header-icon-btn" id="btn-notification-toggle" aria-label="Open Notifications" title="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="header-icon">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-badge" id="notification-badge">3</span>
+          </button>
+
+          <!-- Notification Dropdown Panel -->
+          <div class="notification-dropdown hidden" id="notification-dropdown">
+            <div class="notif-header">
+              <div class="notif-title-group">
+                <span class="notif-title">Notifications</span>
+                <span class="notif-count-pill" id="notif-unread-count">3 new</span>
+              </div>
+              <button class="notif-btn-read-all" id="btn-mark-all-read">Mark all as read</button>
+            </div>
+            
+            <div class="notif-list" id="notification-list">
+              <!-- Dynamic Notification Items -->
+              <div class="notif-item unread" data-id="1">
+                <div class="notif-icon-circle price-drop">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline><polyline points="17 18 23 18 23 12"></polyline></svg>
+                </div>
+                <div class="notif-body">
+                  <div class="notif-item-header">
+                    <span class="notif-item-title">Price Drop: iPhone 15</span>
+                    <span class="notif-time">2m ago</span>
+                  </div>
+                  <p class="notif-message">Price dropped by ₹4,200 at Retailer X. Now ₹68,799.</p>
+                </div>
+                <span class="unread-dot"></span>
+              </div>
+
+              <div class="notif-item unread" data-id="2">
+                <div class="notif-icon-circle account-sec">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <div class="notif-body">
+                  <div class="notif-item-header">
+                    <span class="notif-item-title">Account Security</span>
+                    <span class="notif-time">1h ago</span>
+                  </div>
+                  <p class="notif-message">New login detected from Bangalore, Chrome Windows.</p>
+                </div>
+                <span class="unread-dot"></span>
+              </div>
+
+              <div class="notif-item unread" data-id="3">
+                <div class="notif-icon-circle deal-alert">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                </div>
+                <div class="notif-body">
+                  <div class="notif-item-header">
+                    <span class="notif-item-title">Deal Tracker Update</span>
+                    <span class="notif-time">Yesterday</span>
+                  </div>
+                  <p class="notif-message">MacBook Air historical low reached this weekend.</p>
+                </div>
+                <span class="unread-dot"></span>
+              </div>
+            </div>
+            
+            <div class="notif-footer">
+              <a href="#profile" class="notif-view-all" id="notif-link-profile">View notification settings</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Theme Toggle (Light / Dark Mode) -->
+        <button class="header-icon-btn theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle light/dark theme" title="Toggle Theme">
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- User Avatar & Profile Reveal Trigger Button -->
+        <button class="header-profile-btn" id="btn-profile-trigger" aria-label="Open User Profile" title="Open My Account">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=128&q=80" alt="Avatar" class="header-avatar-img" id="header-avatar-img">
+          <span class="header-profile-name" id="header-profile-name">Aarav</span>
+          <svg class="header-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <!-- Flow Button CTA -->
+        <button class="flow-btn" id="btn-check-price-cta">
+          <svg class="flow-arrow flow-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+          <span class="flow-text">Check a Price</span>
+          <span class="flow-circle"></span>
+          <svg class="flow-arrow flow-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
       </div>
       
       <!-- Mobile Menu Toggle Button -->
@@ -72,7 +182,18 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
               <input type="text" id="price-search-input" placeholder="Type a product (e.g., iPhone 15, MacBook Air)..." autocomplete="off">
-              <button type="submit" class="btn btn-primary search-btn" id="btn-submit-search">Check Price</button>
+              <button type="submit" class="flow-btn search-btn" id="btn-submit-search">
+                <svg class="flow-arrow flow-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span class="flow-text">Check Price</span>
+                <span class="flow-circle"></span>
+                <svg class="flow-arrow flow-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
             </form>
           </div>
           
@@ -257,6 +378,8 @@
       </div>
     </section>
 
+    </section>
+
     <!-- Bottom Features Section (Soft White Rounded Box Banner) -->
     <section class="features-section" id="about">
       <div class="features-container">
@@ -370,6 +493,250 @@
       </div>
     </div>
   </footer>
+
+  <!-- ==========================================================================
+       CLICK-TO-REVEAL USER PROFILE DRAWER / PANEL
+       ========================================================================== -->
+  <div class="profile-drawer-overlay hidden" id="profile-drawer-overlay">
+    <div class="profile-drawer-panel" id="profile-drawer-panel">
+      
+      <!-- Drawer Header -->
+      <div class="drawer-header">
+        <div class="drawer-header-title">
+          <span class="badge badge-success">Account Center</span>
+          <h2 class="drawer-title">User Profile & Accounts</h2>
+        </div>
+        <button class="drawer-close-btn" id="btn-close-profile-drawer" aria-label="Close Profile Panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Drawer Scrollable Content -->
+      <div class="drawer-scrollable-content">
+
+        <!-- SECTION A: Primary User Information Section -->
+        <div class="drawer-card user-info-card">
+          <div class="user-card-header">
+            <div class="avatar-large-container">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80" alt="Primary User Avatar" class="avatar-large" id="profile-avatar-img">
+              <button class="avatar-upload-trigger" id="btn-change-avatar-quick" title="Change Avatar Image">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              </button>
+            </div>
+            <div class="user-identity">
+              <div class="identity-top-row">
+                <h3 class="user-display-name" id="profile-display-name">Aarav Sharma</h3>
+                <span class="user-verified-badge" id="profile-tier-badge">Verified Buyer</span>
+              </div>
+              <p class="user-handle-tag" id="profile-handle">@aarav_sharma</p>
+            </div>
+          </div>
+
+          <!-- Profile Details List -->
+          <div class="user-details-group">
+            
+            <!-- Email -->
+            <div class="detail-row">
+              <div class="detail-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <div class="detail-content">
+                <span class="detail-caption">Email Address</span>
+                <span class="detail-text" id="profile-email">aarav.sharma@example.com</span>
+              </div>
+            </div>
+
+            <!-- Masked Mobile Number -->
+            <div class="detail-row">
+              <div class="detail-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div class="detail-content">
+                <span class="detail-caption">Mobile Phone (Privacy Masked)</span>
+                <div class="phone-masked-container">
+                  <span class="detail-text phone-masked" id="profile-phone">+91 ••••••••42</span>
+                  <button class="btn-toggle-mask" id="btn-toggle-phone-mask" title="Toggle Phone Mask Visibility">
+                    <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bio -->
+            <div class="detail-row">
+              <div class="detail-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </div>
+              <div class="detail-content">
+                <span class="detail-caption">Bio</span>
+                <p class="detail-text bio-paragraph" id="profile-bio">
+                  Smart tech enthusiast & frequent shopper. Using FairPrice AI to monitor flagship smartphone drops and domestic flight routes.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="drawer-edit-action">
+            <button class="btn btn-secondary w-full" id="btn-edit-profile-main">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+              Edit Profile
+            </button>
+          </div>
+
+          <!-- Activity Highlights -->
+          <div class="user-stats-bar">
+            <div class="stat-pill">
+              <span class="stat-val">28</span>
+              <span class="stat-lbl">Tracked Items</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-val">₹14,200</span>
+              <span class="stat-lbl">Est. Savings</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-val">5</span>
+              <span class="stat-lbl">Active Alerts</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION B: Multi-Account Management Section -->
+        <div class="drawer-card multi-account-card">
+          <div class="account-card-header">
+            <div>
+              <h3 class="card-subtitle">Linked Accounts</h3>
+              <p class="card-desc">Seamlessly switch between personal, family, or business purchasing profiles.</p>
+            </div>
+            <button class="btn btn-outline btn-sm" id="btn-add-account-open">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Add Account
+            </button>
+          </div>
+
+          <!-- Accounts Dynamic List -->
+          <div class="linked-accounts-list" id="linked-accounts-list">
+            <!-- Account Items rendered via JS -->
+          </div>
+
+          <!-- Security & Quick Controls Strip -->
+          <div class="security-preferences-box">
+            <div class="sec-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <div class="sec-text-box">
+              <span class="sec-title">Two-Factor Authentication</span>
+              <span class="sec-sub">Active via SMS verification (••••42)</span>
+            </div>
+            <span class="badge badge-success sec-badge">Active</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Edit Profile Modal -->
+  <div class="modal-overlay hidden" id="modal-edit-profile">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Edit Profile</h3>
+          <p class="modal-desc">Update your personal account details and public bio.</p>
+        </div>
+        <button class="modal-close-btn" id="btn-close-edit-profile" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <form class="modal-form" id="form-edit-profile">
+        <div class="form-group">
+          <label for="input-edit-name" class="form-label">Full Name</label>
+          <input type="text" id="input-edit-name" class="form-input" placeholder="Your display name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="input-edit-email" class="form-label">Email Address</label>
+          <input type="email" id="input-edit-email" class="form-input" placeholder="your.email@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="input-edit-phone-last2" class="form-label">Mobile Number (Last 2 digits editable for privacy)</label>
+          <div class="phone-input-group">
+            <span class="phone-prefix">+91 ••••••••</span>
+            <input type="text" id="input-edit-phone-last2" class="form-input phone-suffix" maxlength="2" placeholder="42" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="input-edit-avatar" class="form-label">Avatar Image URL</label>
+          <input type="url" id="input-edit-avatar" class="form-input" placeholder="https://images.unsplash.com/...">
+        </div>
+
+        <div class="form-group">
+          <label for="input-edit-bio" class="form-label">Bio</label>
+          <textarea id="input-edit-bio" class="form-textarea" rows="3" placeholder="Tell us about what deals you track..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="btn-cancel-edit-profile">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Add Account Modal -->
+  <div class="modal-overlay hidden" id="modal-add-account">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Link New Account</h3>
+          <p class="modal-desc">Add another personal, business, or family shopping profile.</p>
+        </div>
+        <button class="modal-close-btn" id="btn-close-add-account" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <form class="modal-form" id="form-add-account">
+        <div class="form-group">
+          <label for="input-account-name" class="form-label">Profile Name</label>
+          <input type="text" id="input-account-name" class="form-input" placeholder="e.g. Work Laptop Buying, Home Office" required>
+        </div>
+
+        <div class="form-group">
+          <label for="input-account-email" class="form-label">Account Email</label>
+          <input type="email" id="input-account-email" class="form-input" placeholder="profile.email@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="select-account-role" class="form-label">Profile Category / Role</label>
+          <select id="select-account-role" class="form-select">
+            <option value="Personal">Personal Shopper</option>
+            <option value="Business">Business Procurement</option>
+            <option value="Family">Family Shared Pool</option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="btn-cancel-add-account">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add & Connect Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
 
   <!-- JS Logic -->
   <script src="script.js"></script>
