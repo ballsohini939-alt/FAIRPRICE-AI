@@ -49,114 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.focus();
   });
 
-  // Predefined Mock Database
-  const mockDatabase = {
-    'iphone 15': {
-      name: 'iPhone 15 (128GB, Black)',
-      currentPrice: '₹72,999',
-      history: [79900, 77500, 76900, 75000, 73999, 72999],
-      badgeText: 'Great Deal',
-      badgeClass: 'deal',
-      adviceTitle: 'Deal Verdict: Highly Recommended',
-      adviceDesc: 'iPhone 15 is currently at its lowest price in 30 days. Our AI forecast indicates minor fluctuations but no major price drop until festive sales in 2 months. Buy now.',
-      retailers: [
-        { name: 'Amazon India', price: '₹72,999', isBest: true },
-        { name: 'Flipkart', price: '₹73,499', isBest: false },
-        { name: 'Reliance Digital', price: '₹74,900', isBest: false }
-      ],
-      months: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
-    },
-    'macbook air': {
-      name: 'MacBook Air M2 (8GB/256GB)',
-      currentPrice: '₹92,900',
-      history: [99900, 97000, 95900, 94900, 92900, 92900],
-      badgeText: 'Fair Price',
-      badgeClass: 'fair',
-      adviceTitle: 'Deal Verdict: Good Price',
-      adviceDesc: 'MacBook Air M2 is priced fairly compared to the historical average. The price has stabilized at ₹92,900. It is a safe buy now, though student promotions next month could offer extra cashback.',
-      retailers: [
-        { name: 'Amazon India', price: '₹92,900', isBest: true },
-        { name: 'Croma Retail', price: '₹93,400', isBest: false },
-        { name: 'Apple Store Online', price: '₹99,900', isBest: false }
-      ],
-      months: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
-    },
-    'bangalore -> kolkata': {
-      name: 'Flight Ticket: BLR to CCU (One-way)',
-      currentPrice: '₹5,400',
-      history: [4200, 4800, 5100, 6800, 5800, 5400],
-      badgeText: 'High Demand',
-      badgeClass: 'high',
-      adviceTitle: 'Deal Verdict: Volatile / Wait',
-      adviceDesc: 'Prices on this route are fluctuating. Current fares are 15% higher than the seasonal median. If traveling after 2 weeks, we recommend setting a price alert; historical models show drops on Tuesday nights.',
-      retailers: [
-        { name: 'IndiGo Airlines', price: '₹5,400', isBest: true },
-        { name: 'Air India Express', price: '₹5,750', isBest: false },
-        { name: 'MakeMyTrip', price: '₹5,550', isBest: false }
-      ],
-      months: ['14d ago', '10d ago', '7d ago', '5d ago', '3d ago', 'Today']
-    }
-  };
 
-  // Generate dynamic query details for generic searches
-  function getGenericProductData(query) {
-    // Generate a hash from the query to seed deterministic numbers
-    let hash = 0;
-    for (let i = 0; i < query.length; i++) {
-      hash = query.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    hash = Math.abs(hash);
-    
-    // Generate base price between ₹1,000 and ₹50,000
-    const basePrice = Math.floor((hash % 49) * 1000) + 1200;
-    
-    // Generate 6 month prices with random trend
-    const history = [];
-    let cur = basePrice * 1.15;
-    for (let i = 0; i < 6; i++) {
-      const step = (hash + i) % 3 === 0 ? -1 : 1;
-      const pct = 0.03 * ((hash + i) % 5);
-      cur += cur * step * pct;
-      history.push(Math.round(cur));
-    }
-    
-    const finalPrice = history[5];
-    const formattedPrice = '₹' + finalPrice.toLocaleString('en-IN');
-    
-    // Determine verdict
-    let badgeText = 'Fair Price';
-    let badgeClass = 'fair';
-    let adviceTitle = 'Deal Verdict: Fair Price';
-    let adviceDesc = `AI scans show steady pricing for "${query}". The current price is within 2% of the historical market average. Good time to buy if needed.`;
-    
-    if (finalPrice < history[4] && finalPrice < history[0]) {
-      badgeText = 'Price Drop!';
-      badgeClass = 'deal';
-      adviceTitle = 'Deal Verdict: Recommended Buy';
-      adviceDesc = `Great time to buy! The price of "${query}" has dropped by 8% over the last two weeks. This is near its historical low.`;
-    } else if (finalPrice > history[4] * 1.05) {
-      badgeText = 'Priced High';
-      badgeClass = 'high';
-      adviceTitle = 'Deal Verdict: Wait for Drop';
-      adviceDesc = `The current price is elevated compared to recent weeks. We recommend waiting or setting a price alert, as prices on this item historically drop by 10-15% during retail sales events.`;
-    }
-    
-    return {
-      name: query.charAt(0).toUpperCase() + query.slice(1),
-      currentPrice: formattedPrice,
-      history: history,
-      badgeText: badgeText,
-      badgeClass: badgeClass,
-      adviceTitle: adviceTitle,
-      adviceDesc: adviceDesc,
-      retailers: [
-        { name: 'Amazon Retail', price: '₹' + finalPrice.toLocaleString('en-IN'), isBest: true },
-        { name: 'Flipkart Online', price: '₹' + Math.round(finalPrice * 1.01).toLocaleString('en-IN'), isBest: false },
-        { name: 'Local Store Average', price: '₹' + Math.round(finalPrice * 1.04).toLocaleString('en-IN'), isBest: false }
-      ],
-      months: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
-    };
-  }
 
   // Draw Line and Area Chart on SVG
   function updateGraphSVG(history) {
@@ -241,17 +134,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Smooth scroll to results
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     
-    // Mock the network search lag
-    setTimeout(() => {
-      let productData = mockDatabase[normalizedQuery];
-      if (!productData) {
-        // If not found in mock database, generate generic details based on search term
-        productData = getGenericProductData(query);
+    // Call the actual API backend
+    fetch('http://localhost:8001/api/price/check', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ query: normalizedQuery })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-      
+      return response.json();
+    })
+    .then(productData => {
       // Update result details
       document.getElementById('result-product-name').textContent = productData.name;
-      document.getElementById('result-current-price').textContent = productData.currentPrice;
+      document.getElementById('result-current-price').textContent = productData.current_price;
       
       // Badge update
       const badge = document.getElementById('result-badge');
@@ -260,7 +160,11 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Advice update
       document.getElementById('result-advice-title').textContent = productData.adviceTitle;
-      document.getElementById('result-advice-desc').textContent = productData.adviceDesc;
+      
+      // The backend provides explanation and suggestions. We can combine them or just use explanation + one suggestion for adviceDesc if we want to match UI structure exactly.
+      // In our design we only have one place for description: result-advice-desc
+      const fullDesc = productData.explanation + " " + (productData.suggestions.length > 0 ? productData.suggestions[0] : "");
+      document.getElementById('result-advice-desc').textContent = fullDesc;
       
       // Update availability list
       updateAvailabilityList(productData.retailers);
@@ -285,8 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
       const insightsLink = document.querySelector('.nav-link[href="#price-insights"]');
       if (insightsLink) insightsLink.classList.add('active');
-      
-    }, 1200);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      alert("Could not connect to the backend server. Please ensure it is running on port 8001.");
+      loadingState.classList.add('hidden');
+    });
   }
 
   // Trigger search on submit form
