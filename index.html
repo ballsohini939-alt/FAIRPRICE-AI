@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Check fair prices and shop with confidence. FairPrice uses AI to analyze market data, track price history, and find the best deals for you.">
+  <title>FairPrice — Check Fair Prices. Shop with Confidence.</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans (Sans-Serif) & Playfair Display (Serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400..600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo" id="header-logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <!-- Indian Rupee (₹) Symbol path inside shield -->
+          <path d="M9 7h5.5M9 9.5h5.5M9 7c2 0 3 0 3 2.5s-1 2.5-3 2.5h1.5l3.5 4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="logo-text">FairPrice</span>
+      </a>
+
+      <nav class="nav-menu" id="header-nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#how-it-works" class="nav-link">How it Works</a>
+        <a href="#price-insights" class="nav-link">Price Insights</a>
+        <a href="#availability" class="nav-link">Availability</a>
+        <a href="#deals" class="nav-link">Deals</a>
+        <a href="#profile" class="nav-link">Profile</a>
+        <a href="#about" class="nav-link">About</a>
+      </nav>
+
+      <div class="header-cta">
+        <button class="btn btn-primary" id="btn-check-price-cta">Check a Price</button>
+      </div>
+      
+      <!-- Mobile Menu Toggle Button -->
+      <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="hero-container">
+        
+        <!-- Left Side: Content & Search -->
+        <div class="hero-content">
+          <h1 class="hero-headline">
+            Check Fair Prices. <br>Shop with <span class="serif-italic">Confidence.</span>
+          </h1>
+          
+          <!-- Floating Search Bar -->
+          <div class="search-container">
+            <form class="search-bar" id="price-search-form" onsubmit="event.preventDefault();">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="price-search-input" placeholder="Type a product (e.g., iPhone 15, MacBook Air)..." autocomplete="off">
+              <button type="submit" class="btn btn-primary search-btn" id="btn-submit-search">Check Price</button>
+            </form>
+          </div>
+          
+          <!-- Pill Tags -->
+          <div class="pill-tags-container">
+            <span class="pill-tag-label">Popular searches:</span>
+            <button class="pill-tag" data-search="iPhone 15">iPhone 15</button>
+            <button class="pill-tag" data-search="MacBook Air">MacBook Air</button>
+            <button class="pill-tag" data-search="Bangalore -> Kolkata">Bangalore → Kolkata</button>
+          </div>
+        </div>
+        
+        <!-- Right Side: Custom Graphic Illustration -->
+        <div class="hero-graphic">
+          <div class="illustration-wrapper">
+            <img src="assets/hero_shopping_bag.jpg" alt="Minimalist FairPrice shopping bag illustration with checkmark speech bubble and Rupee price tag" class="hero-image">
+            <div class="illustration-shadow"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Simulated AI Results Section (WOW / Interactive Feature) -->
+    <section class="results-section hidden" id="price-insights">
+      <div class="results-container">
+        
+        <!-- Loading State -->
+        <div class="loading-state hidden" id="search-loading">
+          <div class="spinner"></div>
+          <p class="loading-text">AI is fetching real-time market data...</p>
+        </div>
+        
+        <!-- Main Result Card -->
+        <div class="result-card hidden" id="search-result-card">
+          <div class="result-header">
+            <div>
+              <span class="badge" id="result-badge">Fair Price</span>
+              <h2 class="result-title" id="result-product-name">iPhone 15</h2>
+            </div>
+            <div class="result-price-box">
+              <span class="result-price-label">Current Avg Price</span>
+              <span class="result-price" id="result-current-price">₹72,999</span>
+            </div>
+          </div>
+          
+          <div class="result-body">
+            <!-- Left: Graph -->
+            <div class="result-graph-container">
+              <h3 class="card-subtitle">6-Month Price Trend</h3>
+              <div class="graph-wrapper">
+                <svg class="trend-graph" viewBox="0 0 500 200" preserveAspectRatio="none">
+                  <!-- Gradient for the area chart -->
+                  <defs>
+                    <linearGradient id="graph-grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--color-sage)" stop-opacity="0.3"/>
+                      <stop offset="100%" stop-color="var(--color-sage)" stop-opacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+                  
+                  <!-- Grid Lines -->
+                  <line x1="0" y1="50" x2="500" y2="50" stroke="var(--color-border)" stroke-dasharray="4" />
+                  <line x1="0" y1="100" x2="500" y2="100" stroke="var(--color-border)" stroke-dasharray="4" />
+                  <line x1="0" y1="150" x2="500" y2="150" stroke="var(--color-border)" stroke-dasharray="4" />
+                  
+                  <!-- Area path under trend line -->
+                  <path id="graph-area-path" d="M 0 200 L 0 150 L 100 130 L 200 160 L 300 90 L 400 100 L 500 80 L 500 200 Z" fill="url(#graph-grad)" />
+                  <!-- Trend Line -->
+                  <path id="graph-line-path" d="M 0 150 L 100 130 L 200 160 L 300 90 L 400 100 L 500 80" fill="none" stroke="var(--color-text)" stroke-width="3" stroke-linecap="round" />
+                  
+                  <!-- Interactive Dots -->
+                  <circle id="graph-dot" cx="500" cy="80" r="6" fill="var(--color-text)" stroke="var(--color-bg-card)" stroke-width="2" />
+                </svg>
+                <div class="graph-labels">
+                  <span>Mar</span>
+                  <span>Apr</span>
+                  <span>May</span>
+                  <span>Jun</span>
+                  <span>Jul</span>
+                  <span>Aug (Now)</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right: Retailer Availability & Deal Advice -->
+            <div class="result-details-panel">
+              <div class="availability-list-container" id="availability">
+                <h3 class="card-subtitle">Retailer Availability</h3>
+                <ul class="availability-list" id="availability-list">
+                  <!-- Generated dynamically via JS -->
+                </ul>
+              </div>
+              
+              <div class="deal-advice-box" id="deals">
+                <div class="advice-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="advice-icon">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                  </svg>
+                </div>
+                <div class="advice-content">
+                  <h4 class="advice-title" id="result-advice-title">FairPrice Deal Verdict</h4>
+                  <p class="advice-desc" id="result-advice-desc">This product is priced fairly compared to its historical market average. Good time to buy.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section class="how-it-works-section" id="how-it-works">
+      <div class="section-container">
+        <h2 class="section-title">How FairPrice Works</h2>
+        <p class="section-subtitle">Four simple steps to clarify market prices and shop smarter.</p>
+        
+        <div class="steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card" id="step-1">
+            <div class="step-icon-wrapper">
+              <span class="step-number">1</span>
+              <div class="step-icon-circle">
+                <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
+            </div>
+            <h3 class="step-title">You Search</h3>
+            <p class="step-desc">Enter any product name, electronics, flight route, or daily essential in our AI search bar.</p>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="step-card" id="step-2">
+            <div class="step-icon-wrapper">
+              <span class="step-number">2</span>
+              <div class="step-icon-circle">
+                <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+              </div>
+            </div>
+            <h3 class="step-title">We Analyze</h3>
+            <p class="step-desc">Our AI scans major e-commerce platforms, local stores, and historical data instantly.</p>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="step-card" id="step-3">
+            <div class="step-icon-wrapper">
+              <span class="step-number">3</span>
+              <div class="step-icon-circle">
+                <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M9 11l2 2 4-4"/>
+                </svg>
+              </div>
+            </div>
+            <h3 class="step-title">You Get Clarity</h3>
+            <p class="step-desc">Review clear charts showing price ranges, historical highs/lows, and retailer margins.</p>
+          </div>
+          
+          <!-- Step 4 -->
+          <div class="step-card" id="step-4">
+            <div class="step-icon-wrapper">
+              <span class="step-number">4</span>
+              <div class="step-icon-circle">
+                <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="step-title">Take Action</h3>
+            <p class="step-desc">Buy at the guaranteed lowest price directly from the store, or set a price alert for later.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Features Section (Soft White Rounded Box Banner) -->
+    <section class="features-section" id="about">
+      <div class="features-container">
+        <div class="features-banner">
+          
+          <!-- Feature Item 1 -->
+          <div class="feature-item" id="feature-trust">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h4 class="feature-title">AI you can trust</h4>
+              <p class="feature-desc">Unbiased pricing metrics without merchant kickbacks.</p>
+            </div>
+          </div>
+          
+          <!-- Feature Item 2 -->
+          <div class="feature-item" id="feature-data">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h4 class="feature-title">Real market data</h4>
+              <p class="feature-desc">Millions of product listings scanned every hour.</p>
+            </div>
+          </div>
+          
+          <!-- Feature Item 3 -->
+          <div class="feature-item" id="feature-privacy">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h4 class="feature-title">Privacy first</h4>
+              <p class="feature-desc">No tracking, no cookies, and no personal data resale.</p>
+            </div>
+          </div>
+          
+          <!-- Feature Item 4 -->
+          <div class="feature-item" id="feature-everyone">
+            <div class="feature-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h4 class="feature-title">Made for everyone</h4>
+              <p class="feature-desc">Simple interface optimized for desktop and mobile search.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo">
+          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 7h5.5M9 9.5h5.5M9 7c2 0 3 0 3 2.5s-1 2.5-3 2.5h1.5l3.5 4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="logo-text">FairPrice</span>
+        </div>
+        <p class="footer-tagline">Empowering shoppers with AI-backed market transparency. Know the real price before you buy.</p>
+      </div>
+      
+      <div class="footer-links-group">
+        <div class="footer-links-col">
+          <span class="footer-col-title">Product</span>
+          <a href="#home">Search Engine</a>
+          <a href="#price-insights">Price Trends</a>
+          <a href="#deals">Best Deals</a>
+        </div>
+        <div class="footer-links-col">
+          <span class="footer-col-title">How it Works</span>
+          <a href="#how-it-works">Our AI Model</a>
+          <a href="#about">Data Transparency</a>
+          <a href="#about">Privacy Center</a>
+        </div>
+        <div class="footer-links-col">
+          <span class="footer-col-title">Company</span>
+          <a href="#about">About FairPrice</a>
+          <a href="#">Contact Us</a>
+          <a href="#">Careers</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 FairPrice AI. Crafted with care for shoppers everywhere.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Twitter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+        </a>
+        <a href="#" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
